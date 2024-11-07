@@ -34,10 +34,6 @@
     ansible.builtin.command: k3d cluster create local-k8s --volume '{{ lookup('ansible.builtin.env', 'PWD') }}'/storage:/var/storage
     args:
       creates: ~/.kube/config
-  - name: create persistent volume
-    kubernetes.core.k8s:
-      state: present
-      src: ./kube/persistent.yaml
   - name: Add signoz chart repo
     kubernetes.core.helm_repository:
       name: signoz
@@ -47,14 +43,3 @@
       name: my-signoz
       chart_ref: signoz/signoz
       release_namespace: default
-  - name: Install flask python package
-    ansible.builtin.pip:
-      name: flask
-  - name: Install opentelemetry-distro python package
-    ansible.builtin.pip:
-      name: opentelemetry-distro
-  - name: Install opentelemetry-exporter-otlp python package
-    ansible.builtin.pip:
-      name: opentelemetry-exporter-otlp
-  - name: Execute opentelemetry-bootstrap
-    ansible.builtin.shell: opentelemetry-bootstrap -a install

@@ -1,17 +1,30 @@
 # FastAPI with SigNoz observability integration
+
+## intended to be run in a devcontainer or codespace
+
 ## Prerequisite
 
-SigNoz should be installed in your local machine or any server. To install SigNoz follow the instructions at https://signoz.io/docs/deployment/docker/
+- Install signoz
 
+```bash
+pip install -r requirements.txt # install ansible
+ansible-playbook playbook.yml # install and start signoz
+```
+
+- make sure that all of the pods are running or complete by running `kubectl get pods`
+
+```bash
+nohup kubectl port-forward svc/my-signoz-frontend 3301:3301  2>&1 &
+nohup kubectl port-forward svc/my-signoz-otel-collector 4317:4317  2>&1 &
+```
+
+To delete the cluster and start over:
+
+```bash
+k3d cluster delete local-k8s
+```
 
 ## Run instructions for sending data to SigNoz
-
-- Create a virtual environment and activate it
-
-```
-python3 -m venv .venv
-source .venv/bin/activate
-```
 
 - Change directory
 
@@ -34,7 +47,7 @@ opentelemetry-bootstrap --action=install
 - Run the app
 
 ```
-OTEL_RESOURCE_ATTRIBUTES=service.name=fastapiApp OTEL_EXPORTER_OTLP_ENDPOINT=http://<IP of SigNoz>:4317 OTEL_EXPORTER_OTLP_PROTOCOL=grpc opentelemetry-instrument uvicorn main:app --host localhost --port 5002
+OTEL_RESOURCE_ATTRIBUTES=service.name=fastapiApp OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 OTEL_EXPORTER_OTLP_PROTOCOL=grpc OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true opentelemetry-instrument --logs_exporter otlp uvicorn main:app --host localhost --port 5002
 ```
 
 `<IP of SigNoz>` will be `localhost` if you are running SigNoz in your localhost. For other installations you can use the same IP where SigNoz is accessible.

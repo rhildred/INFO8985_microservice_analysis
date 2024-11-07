@@ -5,6 +5,8 @@ import requests
 import random
 from opentelemetry import trace
 from opentelemetry.trace.status import Status, StatusCode
+import json
+import subprocess
 
 import requests
 from fastapi import FastAPI
@@ -13,6 +15,8 @@ random.seed(54321)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
+version = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
+logger.info(f"{__name__} started, git commit {version}")
 
 app = FastAPI()
 
@@ -45,7 +49,7 @@ async def exception():
     try:
         raise ValueError("sadness")
     except Exception as ex:
-        logger.error(ex, exc_info=True)
+        logger.error(f"Exception: {ex.args}", exc_info=True)
         span = trace.get_current_span()
 
         # generate random number
