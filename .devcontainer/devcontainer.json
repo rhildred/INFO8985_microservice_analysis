@@ -1,0 +1,28 @@
+{
+    // ...
+    "build": { "dockerfile": "Dockerfile" },
+    "overrideCommand": true,
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "streetsidesoftware.code-spell-checker",
+                "ms-python.autopep8",
+                "dbaeumer.vscode-eslint",
+                "ritwickdey.LiveServer",
+                "ms-python.vscode-pylance",
+                "ms-python.python",
+                "ms-python.debugpy"
+            ]
+        }
+    }
+    // ...
+  }
