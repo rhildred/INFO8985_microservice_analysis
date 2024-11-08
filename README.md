@@ -47,7 +47,7 @@ opentelemetry-bootstrap --action=install
 - Run the app
 
 ```
-OTEL_RESOURCE_ATTRIBUTES=service.name=fastapiApp OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 OTEL_EXPORTER_OTLP_PROTOCOL=grpc OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true opentelemetry-instrument --logs_exporter otlp uvicorn main:app --host localhost --port 5002
+OTEL_RESOURCE_ATTRIBUTES=service.name=fastapiApp,service.version=7fa5a2ba OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 OTEL_EXPORTER_OTLP_PROTOCOL=grpc OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true opentelemetry-instrument --logs_exporter otlp uvicorn main:app --host localhost --port 5002
 ```
 
 `<IP of SigNoz>` will be `localhost` if you are running SigNoz in your localhost. For other installations you can use the same IP where SigNoz is accessible.

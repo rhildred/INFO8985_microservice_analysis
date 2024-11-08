@@ -7,6 +7,7 @@ from opentelemetry import trace
 from opentelemetry.trace.status import Status, StatusCode
 import json
 import subprocess
+import os
 
 import requests
 from fastapi import FastAPI
@@ -15,8 +16,7 @@ random.seed(54321)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-version = subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).decode('ascii').strip()
-logger.info(f"{__name__} started, git commit {version}")
+logger.info(f"{__name__} started") # this will have the version in it
 
 app = FastAPI()
 
