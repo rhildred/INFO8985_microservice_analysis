@@ -14,7 +14,7 @@ ansible-playbook up.yml # install and start signoz
 - make sure that all of the pods are running or complete by running `kubectl get pods`
 
 ```bash
-nohup kubectl port-forward svc/my-signoz-frontend 3301:3301  2>&1 &
+nohup kubectl port-forward svc/my-signoz 8080:8080  2>&1 &
 nohup kubectl port-forward svc/my-signoz-otel-collector 4317:4317  2>&1 &
 ```
 
