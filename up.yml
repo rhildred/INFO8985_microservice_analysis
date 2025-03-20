@@ -48,3 +48,6 @@
       name: my-signoz-k8s-infra
       chart_ref: signoz/k8s-infra
       release_namespace: default
+      set_values:
+        - value: otelCollectorEndpoint=my-signoz-otel-collector:4317
+          value_type: string
