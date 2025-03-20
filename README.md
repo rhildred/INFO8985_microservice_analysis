@@ -8,7 +8,7 @@
 
 ```bash
 pip install -r requirements.txt # install ansible
-ansible-playbook playbook.yml # install and start signoz
+ansible-playbook up.yml # install and start signoz
 ```
 
 - make sure that all of the pods are running or complete by running `kubectl get pods`

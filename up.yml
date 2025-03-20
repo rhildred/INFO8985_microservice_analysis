@@ -43,3 +43,8 @@
       name: my-signoz
       chart_ref: signoz/signoz
       release_namespace: default
+  - name: monitor k8s infrastructure too
+    kubernetes.core.helm:
+      name: my-signoz-k8s-infra
+      chart_ref: signoz/k8s-infra
+      release_namespace: default
